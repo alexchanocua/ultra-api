@@ -27,8 +27,8 @@ app.get('/', (req, res) => {
     res.send("it's working")
 });
 
-app.listen(3000, () => {
-    console.log(`app is running on port ...`);
+app.listen(process.env.PORT || 3000, () => {
+    console.log(`app is running on port ${process.env.PORT}...`);
 });
 
 // app.post('/signin', signin.handleSignin(db, bcrypt) );
