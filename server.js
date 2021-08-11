@@ -21,7 +21,7 @@ const app = express();
 
 // middle-ware for parsing JSON data from front-end
 app.use(express.json());
-// app.use(cors);
+app.use(cors);
 
 app.get('/', (req, res) => {
     res.send("it's working")
