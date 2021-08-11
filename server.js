@@ -1,7 +1,7 @@
 // packages
 const express = require('express');
 const bcrypt = require('bcrypt');
-// const cors = require('cors');
+const cors = require("cors");
 const knex = require('knex');
 // controllers
 const register = require('./controllers/register');
@@ -21,7 +21,10 @@ const app = express();
 
 // middle-ware for parsing JSON data from front-end
 app.use(express.json());
-// app.use(cors);
+
+app.use(cors({
+    origin: '*'
+}))
 
 app.get('/', (req, res) => {
     res.send("it's working")
