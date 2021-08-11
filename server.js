@@ -1,7 +1,7 @@
 // packages
 const express = require('express');
 const bcrypt = require('bcrypt');
-// const cors = require('cors');
+const cors = require('cors');
 const knex = require('knex');
 // controllers
 const register = require('./controllers/register');
@@ -12,8 +12,8 @@ const db = knex({
       connectionString: process.env.DATABASE_URL, // heroku PSQL
       ssl: {
         rejectUnauthorized: false
-      }
-    }
+      },
+    },
   });
 
 // creating express server
@@ -31,7 +31,7 @@ app.post('/signin', (req, res) => {
     res.send("signed in")
 })
 
-app.post('/register',  (req, res) => { register.handleRegister(req,res, bcrypt)});
+app.post('/register',  (req, res) => { register.handleRegister(req,res, bcrypt, db)});
 
 app.listen(process.env.PORT || 3000, () => {
     if (process.env.PORT)
