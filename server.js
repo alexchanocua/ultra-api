@@ -5,6 +5,7 @@ const cors = require("cors");
 const knex = require('knex');
 // controllers
 const register = require('./controllers/register');
+const signin = require('./controllers/signin');
 
 const db = knex({
     client: 'pg',
@@ -30,9 +31,7 @@ app.get('/', (req, res) => {
     res.send("it's working")
 });
 
-app.post('/signin', (req, res) => {
-    res.send("signed in")
-})
+app.post('/signin', (req, res) => { signin.handleSignin(req, res, bcrypt, db)});
 
 app.post('/register',  (req, res) => { register.handleRegister(req,res, bcrypt, db)});
 
