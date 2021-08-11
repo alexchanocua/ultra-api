@@ -1,20 +1,20 @@
 // packages
 const express = require('express');
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 // const cors = require('cors');
-// const knex = require('knex');
+const knex = require('knex');
 // controllers
 const register = require('./controllers/register');
 
-// const db = knex({
-//     client: 'pg',
-//     connection: {
-//       connectionString: process.env.DATABASE_URL, // heroku PSQL
-//       ssl: {
-//         rejectUnauthorized: false
-//       }
-//     }
-//   });
+const db = knex({
+    client: 'pg',
+    connection: {
+      connectionString: process.env.DATABASE_URL, // heroku PSQL
+      ssl: {
+        rejectUnauthorized: false
+      }
+    }
+  });
 
 // creating express server
 const app = express();
@@ -31,10 +31,13 @@ app.post('/signin', (req, res) => {
     res.send("signed in")
 })
 
-app.post('/register',  (req, res) => { register.handleRegister(req,res)});
+app.post('/register',  (req, res) => { register.handleRegister(req,res, bcrypt)});
 
 app.listen(process.env.PORT || 3000, () => {
-    console.log(`app is running on port ${process.env.PORT}...`);
+    if (process.env.PORT)
+        console.log(`app is running on port ${process.env.PORT}...`);
+    else
+        console.log('app is running on port 3000...');
+    
 });
 
-// app.post('/signin', signin.handleSignin(db, bcrypt) );
