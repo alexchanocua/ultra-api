@@ -4,7 +4,7 @@ const express = require('express');
 // const cors = require('cors');
 // const knex = require('knex');
 // controllers
-
+const register = require('./controllers/register');
 
 // const db = knex({
 //     client: 'pg',
@@ -20,7 +20,7 @@ const express = require('express');
 const app = express();
 
 // middle-ware for parsing JSON data from front-end
-// app.use(express.json());
+app.use(express.json());
 // app.use(cors);
 
 app.get('/', (req, res) => {
@@ -30,6 +30,8 @@ app.get('/', (req, res) => {
 app.post('/signin', (req, res) => {
     res.send("signed in")
 })
+
+app.post('/register',  (req, res) => { register.handleRegister(req,res)});
 
 app.listen(process.env.PORT || 3000, () => {
     console.log(`app is running on port ${process.env.PORT}...`);
